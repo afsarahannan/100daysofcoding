@@ -1,4 +1,5 @@
 from turtle import Turtle
+import random
 from scoreboard import Scoreboard
 
 POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
@@ -7,6 +8,7 @@ UP = 90
 DOWN = 270
 LEFT = 180
 RIGHT = 0
+COLORS = ['red', 'yellow', 'orange', 'green', 'blue', 'purple', 'cyan', 'violet']
 
 
 class Snake:
@@ -23,7 +25,7 @@ class Snake:
     def add_segment(self, position):
         snake_body = Turtle('square')
         snake_body.penup()
-        snake_body.color('white')
+        snake_body.color(random.choice(COLORS))
         snake_body.goto(position)
         self.segments.append(snake_body)
 
@@ -36,6 +38,7 @@ class Snake:
             new_y = self.segments[seg - 1].ycor()
             self.segments[seg].goto(new_x, new_y)
         self.head.forward(MOVE_DISTANCE)
+
 
     def up(self):
         if self.head.heading() != DOWN:

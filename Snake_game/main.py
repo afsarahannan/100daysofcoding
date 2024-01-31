@@ -39,7 +39,7 @@ while game_is_on:
     # the screen.update() will make the snake body move together without time lag
 
     screen.update()
-    time.sleep(0.1)
+    time.sleep(0.08)
 
     snake.move()
 
@@ -50,9 +50,9 @@ while game_is_on:
         score.increase_score()
 
     # game over when snake hits wall
-    if snake.head.xcor()> 299 or snake.head.xcor()< -299 or snake.head.ycor()> 299 or snake.head.xcor()< -299:
-        game_is_on = False
-        score.game_over_sign()
+    # if snake.head.xcor()> 299 or snake.head.xcor()< -299 or snake.head.ycor()> 299 or snake.head.xcor()< -299:
+    #     game_is_on = False
+    #     score.game_over_sign()
 
     # game over when the snake hits its tail
     for segment in snake.segments[1:]:
