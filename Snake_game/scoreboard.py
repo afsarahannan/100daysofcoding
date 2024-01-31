@@ -7,7 +7,7 @@ class Scoreboard(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
-        self.setposition(0,270)
+        self.setposition(0, 270)
         self.color("white")
         self.hideturtle()
         self.update_scoreboard()
@@ -23,3 +23,7 @@ class Scoreboard(Turtle):
     def game_over_sign(self):
         self.setposition(0, 0)
         self.write("Game Over", move=False, align=ALIGNMENT, font=FONT)
+
+    def game_pause_sign(self):
+        self.setposition(0, 0)
+        self.write("The game is paused. Press 's' to start again.", move=False, align=ALIGNMENT, font=FONT)

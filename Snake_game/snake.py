@@ -1,4 +1,5 @@
 from turtle import Turtle
+from scoreboard import Scoreboard
 
 POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
@@ -7,7 +8,9 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
+
 class Snake:
+
     def __init__(self):
         self.segments = []
         self.create_snake()
@@ -50,3 +53,9 @@ class Snake:
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
 
+    # def pause(self):
+    #     # pause = Scoreboard()
+    #     # pause.game_pause_sign()
+    #
+    # def start(self):
+    #     pass

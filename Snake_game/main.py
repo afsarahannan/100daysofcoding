@@ -17,16 +17,27 @@ snake = Snake()
 food = Food()
 score = Scoreboard()
 
+start_game = screen.textinput(title="Are you ready to play? ",
+                              prompt="type y for ready n for quit game")
+
+if start_game == 'y':
+    game_is_on = True
+else:
+    game_is_on = False
+    print("Adios")
+    screen.bye()
 
 screen.listen()
 screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
+# screen.onkey(snake.pause, "space")
+# screen.onkey(snake.start, "s")
 
-game_is_on = True
 while game_is_on:
     # the screen.update() will make the snake body move together without time lag
+
     screen.update()
     time.sleep(0.1)
 
@@ -39,15 +50,21 @@ while game_is_on:
         score.increase_score()
 
     # game over when snake hits wall
-    if snake.head.xcor()> 280 or snake.head.xcor()< -280 or snake.head.ycor()> 280 or snake.head.xcor()< -280:
+    if snake.head.xcor()> 299 or snake.head.xcor()< -299 or snake.head.ycor()> 299 or snake.head.xcor()< -299:
         game_is_on = False
         score.game_over_sign()
 
     # game over when the snake hits its tail
     for segment in snake.segments[1:]:
-        if snake.head.distance(snake.segments) < 10:
+        if snake.head.distance(segment) < 10:
             game_is_on = False
             score.game_over_sign()
+
+    # if snake.pause():
+    #     game_is_on = False
+    #
+    # if snake.start():
+    #     game_is_on = True
 
 
 screen.exitonclick()
