@@ -9,7 +9,6 @@ LEFT = 180
 RIGHT = 0
 COLORS = ['red', 'yellow', 'orange', 'green', 'blue', 'purple', 'cyan', 'violet']
 
-
 class Snake:
 
     def __init__(self):
