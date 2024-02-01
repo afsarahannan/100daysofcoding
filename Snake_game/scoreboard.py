@@ -22,8 +22,5 @@ class Scoreboard(Turtle):
 
     def game_over_sign(self):
         self.setposition(0, 0)
-        self.write("Good job Shihab baby.", move=False, align=ALIGNMENT, font=FONT)
+        self.write("Game Over.", move=False, align=ALIGNMENT, font=FONT)
 
-    def game_pause_sign(self):
-        self.setposition(0, 0)
-        self.write("The game is paused. Press 's' to start again.", move=False, align=ALIGNMENT, font=FONT)

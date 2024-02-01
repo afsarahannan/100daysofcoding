@@ -27,21 +27,31 @@ else:
     print("Adios")
     screen.bye()
 
-screen.listen()
-screen.onkey(snake.up, "Up")
-screen.onkey(snake.down, "Down")
-screen.onkey(snake.left, "Left")
-screen.onkey(snake.right, "Right")
-# screen.onkey(snake.pause, "space")
-# screen.onkey(snake.start, "s")
+def screen_control():
+    screen.listen()
+    screen.onkey(snake.up, "Up")
+    screen.onkey(snake.down, "Down")
+    screen.onkey(snake.left, "Left")
+    screen.onkey(snake.right, "Right")
+def pause():
+    answer = screen.textinput(title="The game is paused.", prompt="type 's' to start the game.")
+    if answer == "s":
+        screen_control()
+        screen.update()
+        time.sleep(0.1)
+        snake.move()
+    else:
+        pass
 
 while game_is_on:
     # the screen.update() will make the snake body move together without time lag
-
+    screen_control()
     screen.update()
-    time.sleep(0.08)
+    time.sleep(0.1)
 
     snake.move()
+
+    screen.onkey(pause, "space")
 
     # score increase when the snake eats the food
     if snake.head.distance(food) < 15:
@@ -50,21 +60,15 @@ while game_is_on:
         score.increase_score()
 
     # game over when snake hits wall
-    # if snake.head.xcor()> 299 or snake.head.xcor()< -299 or snake.head.ycor()> 299 or snake.head.xcor()< -299:
-    #     game_is_on = False
-    #     score.game_over_sign()
+    if snake.head.xcor() > 299 or snake.head.xcor() < -299 or snake.head.ycor() > 299 or snake.head.xcor() < -299:
+        game_is_on = False
+        score.game_over_sign()
 
     # game over when the snake hits its tail
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
             game_is_on = False
             score.game_over_sign()
-
-    # if snake.pause():
-    #     game_is_on = False
-    #
-    # if snake.start():
-    #     game_is_on = True
 
 
 screen.exitonclick()
