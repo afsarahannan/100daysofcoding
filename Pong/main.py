@@ -4,7 +4,7 @@ from scoreboard import Scoreboard
 import time
 
 screen = Screen()
-screen.setup(width=600, height=600)
+screen.setup(width=800, height=600)
 screen.bgcolor("black")
 screen.title("The Pong Master 2000")
 screen.tracer(0)
@@ -24,33 +24,32 @@ for _ in range(19):
 
 dashed_line.hideturtle()
 
-paddle1 = Paddle()
-paddle2 = Paddle()
-score = Scoreboard()
 
 start_game = screen.textinput(title="Are you ready for an epic game of PONG!",
                               prompt="Enter 's' to begin.")
 
+paddle = Paddle()
+score = Scoreboard()
 
 def screen_control():
     screen.listen()
-    screen.onkey(paddle1.up, 'Up')
-    screen.onkey(paddle1.down, 'Down')
+    screen.onkey(paddle.p1_up, 'Up')
+    screen.onkey(paddle.p1_down, 'Down')
 
-    screen.onkey(paddle2.up, 'w')
-    screen.onkey(paddle2.down, 's')
-
+    screen.onkey(paddle.p2_up, 'w')
+    screen.onkey(paddle.p2_down, 's')
+#
 
 if start_game == 's':
     game_is_on = True
 else:
     game_is_on = False
 
-# while game_is_on:
-screen_control()
-screen.update()
-time.sleep(0.1)
-paddle1.move()
-paddle2.move()
+while game_is_on:
+    screen_control()
+    screen.update()
+    time.sleep(0.1)
+    paddle.p1_move()
+    paddle.p2_move()
 
 screen.exitonclick()
