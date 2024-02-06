@@ -1,6 +1,7 @@
 from turtle import Turtle, Screen
 from paddle import Paddle
 from scoreboard import Scoreboard
+from ball import Ball
 import time
 
 screen = Screen()
@@ -11,7 +12,7 @@ screen.tracer(0)
 
 # the partition in the middle
 dashed_line = Turtle('square')
-dashed_line.goto(x=0, y=-280)
+dashed_line.goto(x=-10, y=-280)
 dashed_line.setheading(90)
 dashed_line.color('white')
 dashed_line.width(5)
@@ -28,17 +29,21 @@ dashed_line.hideturtle()
 start_game = screen.textinput(title="Are you ready for an epic game of PONG!",
                               prompt="Enter 's' to begin.")
 
-paddle = Paddle()
-score = Scoreboard()
+p1 = Paddle((370, 0))
+p2 = Paddle((-370, 0))
+p1_score = Scoreboard(player='p1', position=(140, 270))
+p2_score = Scoreboard(player='p2', position=(-150, 270))
+ball = Ball()
 
 def screen_control():
     screen.listen()
-    screen.onkey(paddle.p1_up, 'Up')
-    screen.onkey(paddle.p1_down, 'Down')
+    screen.onkey(p1.up, 'Up')
+    screen.onkey(p1.down, 'Down')
 
-    screen.onkey(paddle.p2_up, 'w')
-    screen.onkey(paddle.p2_down, 's')
-#
+    screen.onkey(p2.up, 'w')
+    screen.onkey(p2.down, 's')
+
+# Ask the user if they want to play the game
 
 if start_game == 's':
     game_is_on = True
@@ -49,7 +54,36 @@ while game_is_on:
     screen_control()
     screen.update()
     time.sleep(0.1)
-    paddle.p1_move()
-    paddle.p2_move()
+
+    ball.move_around()
+
+# bouncing off the walls
+    if ball.ycor() >= 290 or ball.ycor() <= -290:
+        ball.bounce()
+
+# bouncing off the paddles
+    if ball.distance(p1) < 30 and ball.xcor() > 250 or ball.distance(p2) < 30 and ball.xcor() < -320:
+        print("This part works")
+        ball.paddle_bounce()
+
+# decreasing score for the player 1
+    if ball.xcor() >= 370:
+        p1_score.decrease_lives()
+        ball.clear()
+
+    if ball.xcor() <= -370:
+        p2_score.decrease_lives()
+        ball.clear()
+
+
+# Game over
+    if p1_score.lives == 0:
+        p1_score.game_over()
+        game_is_on = False
+
+    if p2_score.lives == 0:
+        p2_score.game_over()
+        game_is_on = False
+
 
 screen.exitonclick()

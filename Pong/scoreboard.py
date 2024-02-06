@@ -2,34 +2,33 @@ from turtle import Turtle
 
 ALIGNMENT = "center"
 FONT = ('Arial', 15, 'normal')
-POSITIONS = [(-150, 270), (140, 270)]
-PLAYERS = ['P1', 'P2']
 
 
 class Scoreboard(Turtle):
-    def __init__(self):
+    def __init__(self, player=None, position=None):
         super().__init__()
+        self.player = player
+        self.position = position
         self.lives = 3
         self.create_scoreboard()
 
     def create_scoreboard(self):
-        for i in range(0, len(POSITIONS)):
-            self.setposition(POSITIONS[i])
-            self.color('white')
-            self.penup()
-            self.hideturtle()
-            self.update_scoreboard(PLAYERS[i])
+        self.setposition(self.position)
+        self.color('white')
+        self.penup()
+        self.hideturtle()
+        self.update_scoreboard(self.player)
 
     def update_scoreboard(self, player):
         self.write(f'{player}: {self.lives}', move=False, align=ALIGNMENT, font=FONT)
 
-    def decrease_lives_p1(self):
+    def decrease_lives(self):
         self.clear()
         self.lives -= 1
-        self.update_scoreboard(PLAYERS[0])
+        self.update_scoreboard(self.player)
 
-    def decrease_lives_p2(self):
-        self.clear()
-        self.lives -= 1
-        self.update_scoreboard(PLAYERS[1])
+    def game_over(self):
+        self.setposition(0, 0)
+        self.write(f"{self.player} lost the game", move=False, align=ALIGNMENT, font=FONT)
+
 
