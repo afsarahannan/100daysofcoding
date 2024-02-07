@@ -5,16 +5,17 @@ MOVE_DISTANCE = 40
 
 class Paddle(Turtle):
     def __init__(self,
-                 positions=None):
+                 positions=None, color=None):
         super().__init__()
-        self.create_paddle(positions)
+        self.create_paddle(positions, color)
 
-    def create_paddle(self, positions):
+    def create_paddle(self, positions, color):
         self.shape('square')
         self.shapesize(stretch_wid=5, stretch_len=1)
         self.color('white')
         self.penup()
         self.goto(positions)
+        self.color(color)
 
     def up(self):
         if self.ycor() < 250 - MOVE_DISTANCE:

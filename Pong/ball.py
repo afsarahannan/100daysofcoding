@@ -9,7 +9,7 @@ LEFT = 180
 RIGHT = 0
 Y_MOVE = 10
 X_MOVE = 10
-
+COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'violet', 'pink']
 
 class Ball(Turtle):
     def __init__(self):
@@ -39,9 +39,11 @@ class Ball(Turtle):
     def paddle_bounce(self):
         self.x_move *= -1
         self.move_speed *= 0.9
+        self.color(random.choice(COLORS))
 
     def reset_position(self):
         self.home()
+        self.color('white')
         self.move_speed = 0.06
         self.paddle_bounce()
 

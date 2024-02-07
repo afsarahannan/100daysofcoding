@@ -29,8 +29,8 @@ dashed_line.hideturtle()
 start_game = screen.textinput(title="Are you ready for an epic game of PONG!",
                               prompt="Enter 's' to begin.")
 
-p1 = Paddle((370, 0))
-p2 = Paddle((-370, 0))
+p1 = Paddle((370, 0), 'lightblue')
+p2 = Paddle((-370, 0), 'pink')
 p1_score = Scoreboard(player='p1', position=(140, 270))
 p2_score = Scoreboard(player='p2', position=(-150, 270))
 ball = Ball()
