@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 ALIGNMENT = "center"
-FONT = ('Arial', 15, 'normal')
+FONT = ('Courier', 18, 'normal')
 
 
 class Scoreboard(Turtle):
@@ -20,7 +20,7 @@ class Scoreboard(Turtle):
         self.update_scoreboard(self.player)
 
     def update_scoreboard(self, player):
-        self.write(f'{player}: {self.lives}', move=False, align=ALIGNMENT, font=FONT)
+        self.write(f'{player}: {self.lives} lives left', move=False, align=ALIGNMENT, font=FONT)
 
     def decrease_lives(self):
         self.clear()

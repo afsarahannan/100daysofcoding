@@ -53,7 +53,7 @@ else:
 while game_is_on:
     screen_control()
     screen.update()
-    time.sleep(0.1)
+    time.sleep(ball.move_speed)
 
     ball.move_around()
 
@@ -62,18 +62,19 @@ while game_is_on:
         ball.bounce()
 
 # bouncing off the paddles
-    if ball.distance(p1) < 30 and ball.xcor() > 250 or ball.distance(p2) < 30 and ball.xcor() < -320:
-        print("This part works")
+    if ball.distance(p1) < 30 and ball.xcor() > 260 or ball.distance(p2) < 30 and ball.xcor() < -320:
         ball.paddle_bounce()
 
-# decreasing score for the player 1
-    if ball.xcor() >= 370:
+    # decreasing score for the player 1
+    if ball.xcor() >= 390:
+        time.sleep(2)
+        ball.reset_position()
         p1_score.decrease_lives()
-        ball.clear()
 
-    if ball.xcor() <= -370:
+    if ball.xcor() <= -390:
+        time.sleep(2)
+        ball.reset_position()
         p2_score.decrease_lives()
-        ball.clear()
 
 
 # Game over
