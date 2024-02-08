@@ -12,7 +12,7 @@ class Paddle(Turtle):
     def create_paddle(self, positions, color):
         self.shape('square')
         self.shapesize(stretch_wid=5, stretch_len=1)
-        self.color('white')
+        # self.color('white')
         self.penup()
         self.goto(positions)
         self.color(color)
