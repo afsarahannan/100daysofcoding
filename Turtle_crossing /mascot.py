@@ -12,7 +12,7 @@ class Mascot(Turtle):
     def create_mascot(self):
         self.shape('turtle')
         self.penup()
-        self.goto(x=0, y=-280)
+        self.goto(x=0, y=-370)
         self.setheading(UP)
         self.color('black')
 
