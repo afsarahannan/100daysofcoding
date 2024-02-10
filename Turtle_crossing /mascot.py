@@ -4,6 +4,8 @@ UP = 90
 LEFT = 180
 RIGHT = 0
 MOVE_DISTANCE = 20
+
+
 class Mascot(Turtle):
     def __init__(self):
         super().__init__()
@@ -12,7 +14,7 @@ class Mascot(Turtle):
     def create_mascot(self):
         self.shape('turtle')
         self.penup()
-        self.goto(x=0, y=-370)
+        self.goto(x=0, y=-320)
         self.setheading(UP)
         self.color('black')
 
