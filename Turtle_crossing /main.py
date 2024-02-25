@@ -1,5 +1,4 @@
-import random
-from turtle import Screen
+from turtle import Screen, Turtle
 from mascot import Mascot
 from scoreboard import Scoreboard
 from car import Car
@@ -15,13 +14,24 @@ start_game = screen.textinput(title="Are you ready to help Timmy cross the road"
                               prompt="Enter 's' to begin.")
 
 timmy = Mascot()
+car_manager = Car()
 score = Scoreboard()
-total_cars = []
-car_number = random.randint(5, 10)
 
-for _ in range(0, car_number):
-    car = Car()
-    total_cars.append(car)
+#finish line
+
+finish_line = Turtle()
+finish_line.penup()
+finish_line.goto(-200,300)
+finish_line.hideturtle()
+finish_line.color('red')
+finish_line.width(5)
+
+for _ in range(10):
+    finish_line.pendown()
+    finish_line.forward(20)
+    finish_line.penup()
+    finish_line.forward(20)
+
 
 def screen_control():
     screen.listen()
@@ -29,39 +39,32 @@ def screen_control():
     screen.onkey(timmy.turn_left, "Left")
     screen.onkey(timmy.turn_right, 'Right')
 
+
 if start_game == 's':
     game_is_on = True
 else:
     game_is_on = False
 
-while game_is_on:
 
-    screen_control()
+screen_control()
+while game_is_on:
+    time.sleep(0.1)
     screen.update()
 
-    for vehicle in total_cars:
-        time.sleep(vehicle.car_speed)
+    car_manager.create_car()
+    car_manager.cars_move()
 
-    for vehicle in total_cars:
-        vehicle.cars_move()
-        vehicle.speed()
-
-    for vehicle in total_cars:
-        if vehicle.xcor() < -490:
-            vehicle.create_cars()
-
-    if timmy.ycor() > 300:
-        score.increase_level()
-        timmy.goto(x=0, y=-320)
-        for vehicle in total_cars:
-            vehicle.car_speed *= 0.09
-        print("This works")
-
-
-    for vehicle in total_cars:
-        if timmy.distance(vehicle) < 30:
-            score.game_over_sign()
+    for car in car_manager.all_cars:
+        if car.distance(timmy) < 15:
             game_is_on = False
+            score.game_over_sign()
 
+    if timmy.ycor() == finish_line.ycor():
+        score.increase_level()
+        timmy.go_to_start()
+        car_manager.level_up()
+        timmy.level_up()
+        print(f'{car_manager.move_distance}')
+        print("This works")
 
 screen.exitonclick()
