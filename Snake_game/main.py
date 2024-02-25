@@ -4,6 +4,7 @@ from food import Food
 from scoreboard import Scoreboard
 import time
 
+
 screen = Screen()
 screen.setup(width=600, height=600)
 screen.bgcolor('black')
@@ -61,14 +62,19 @@ while game_is_on:
 
     # game over when snake hits wall
     if snake.head.xcor() > 299 or snake.head.xcor() < -299 or snake.head.ycor() > 299 or snake.head.xcor() < -299:
-        game_is_on = False
-        score.game_over_sign()
+        score.reset()
+        snake.reset()
+
+        # game_is_on = False
+        # score.game_over_sign()
 
     # game over when the snake hits its tail
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            score.game_over_sign()
+            score.reset()
+            snake.reset()
+            # game_is_on = False
+            # score.game_over_sign()
 
 
 screen.exitonclick()
