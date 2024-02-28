@@ -26,8 +26,6 @@ for (index, row) in student_data_frame.iterrows():
 data = pd.read_csv("nato_phonetic_alphabet.csv")
 phonetic_dict = {row.letter:row.code for (index,row) in data.iterrows()}
 
-
-
 user_response = input("Enter a name to convert to NATO code. \n")
 NATO_convertor = [phonetic_dict[letter] for letter in user_response.upper()]
 print(NATO_convertor)

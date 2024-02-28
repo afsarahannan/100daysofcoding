@@ -57,7 +57,7 @@ while not guess_all_states:
             already_guessed.clear()
             guess_all_states = False
 
-        if score_count == 50:
+        if score_count == len(data['state'].to_list()): #50
             game_over = Guess(0, 0, "Congratulations, you have guessed them all!!")
             guess_all_states = True
 
