@@ -12,6 +12,7 @@ LONG_BREAK_MIN = 20
 REPS = 0
 timer = None
 
+
 # ---------------------------- TIMER RESET ------------------------------- # 
 
 def timer_reset():
@@ -34,10 +35,10 @@ def start_timer():
     long_break_sec = LONG_BREAK_MIN * 60
 
 
-    if REPS%8 == 0:
+    if REPS% 8 == 0:
         count_down(long_break_sec)
         timer_label.config(text="Long Break 20 Mins", fg=RED)
-    elif REPS%2 == 0:
+    elif REPS% 2 == 0:
         count_down(short_break_sec)
         timer_label.config(text="Short Break 5 Mins", fg=PINK)
     else:
@@ -74,7 +75,6 @@ window = Tk()
 window.title("Pomodoro Timer")
 window.config(padx=100, pady=50, bg=YELLOW)
 
-
 #label
 timer_label = Label(text="Timer", font=(FONT_NAME, 35, "bold"), fg=GREEN, highlightthickness=0, bg=YELLOW)
 timer_label.grid(column=1, row=0)
@@ -95,7 +95,6 @@ tomato_img = PhotoImage(file="tomato.png")
 canvas.create_image(100, 112, image=tomato_img)
 timer_text = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
 canvas.grid(column=1, row=1)
-
 
 
 

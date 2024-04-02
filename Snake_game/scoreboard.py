@@ -1,4 +1,5 @@
 from turtle import Turtle
+import random
 from typing import TextIO
 
 ALIGNMENT = "center"

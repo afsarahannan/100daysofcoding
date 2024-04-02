@@ -40,3 +40,4 @@ class Car:
 car = Car(make="Nissan")
 print(car.make)
 print(car.model)# when we assign an attribute in the class with .get, then if the attribute is not specifed when initiating the class, then the call will return a None
+

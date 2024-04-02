@@ -9,7 +9,7 @@ window.config(padx = 20, pady=20)
 
 #Label
 my_label = Label(text="This is a label.", font=("Arial", 10, "bold"))
-# my_label.pack() #the packer will centers the label in the center of the screen
+# my_label.pack() #the packer will center the label in the center of the screen
 # my_label.place(x=0, y=0)
 my_label.grid(column=0, row=0)
 
@@ -44,18 +44,18 @@ text = Text(height=3, width=50)
 text.focus()
 text.insert(END, "Example of multi-line text entry.")
 print(text.get("1.0", END))
-text.pack(expand=1)
+# text.pack(expand=1)
 
 #spinbox
 def spinbox_used():
     print(spinbox.get())
 spinbox = Spinbox(from_=0, to=20, width=3, command=spinbox_used)
-spinbox.pack()
+# spinbox.pack()
 
 def scale_used(value):
     print(value)
 scale = Scale(from_=0, to=100, command=scale_used)
-scale.pack()
+# scale.pack()
 
 #Check Button
 def checkbutton_used():
@@ -64,7 +64,7 @@ def checkbutton_used():
 checked_state= IntVar()
 checkbutton = Checkbutton(text= "Is on?", variable=checked_state, command=checkbutton_used)
 checked_state.get()
-checkbutton.pack()
+# checkbutton.pack()
 
 #radiobutton
 def radio_used():
@@ -73,8 +73,8 @@ def radio_used():
 radio_state = IntVar()
 radio1 = Radiobutton(text= "Option1", value=1, variable=radio_state, command=radio_used)
 radio2 = Radiobutton(text= "Option2", value=2, variable=radio_state, command=radio_used)
-radio1.pack()
-radio2.pack()
+# radio1.pack()
+# radio2.pack()
 
 #Listbox
 def listbox_used(event):
@@ -85,7 +85,7 @@ fruits = ['Apple', "Pear", "Orange"]
 for item in fruits:
     listbox.insert(fruits.index(item), item)
 listbox.bind("<<ListBoxSelect>>", listbox_used)
-listbox.pack()
+# listbox.pack()
 #
 
 

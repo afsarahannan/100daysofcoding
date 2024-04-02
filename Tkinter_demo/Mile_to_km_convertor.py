@@ -5,7 +5,7 @@ window.title("Mile to Km convertor")
 window.minsize(width=300, height=10)
 
 #Entry
-input = Entry( width=5)
+input = Entry(width=5)
 input.insert(END, "0")
 input.place(x=110, y=30)
 
