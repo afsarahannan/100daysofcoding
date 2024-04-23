@@ -3,21 +3,21 @@
 # And in the case when the try method has not returned any error and everything is running smoothly then the code moves to the
 # else statement
 # the finally will run no matter what happens
-# try:
-#     file = open("data.txt")
-#     dict = {'key':'value'}
-#     print(dict["key"])
-# except FileNotFoundError:
-#     file = open("data.txt", "w")
-#     file.write("This is a test statement")
-# except KeyError as error_message:
-#     print(f"The {error_message} could not be found.")
-# else:
-#     content = file.read()
-#     print(content)
-# finally:
-#     file.close()
-#     print("The file was closed.")
+try:
+    file = open("data.txt")
+    dict = {'key':'value'}
+    print(dict["key"])
+except FileNotFoundError:
+    file = open("data.txt", "w")
+    file.write("This is a test statement")
+except KeyError as error_message:
+    print(f"The {error_message} could not be found.")
+else:
+    content = file.read()
+    print(content)
+finally:
+    file.close()
+    print("The file was closed.")
 
 #knowing when to raise an error
 

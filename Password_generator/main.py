@@ -8,7 +8,7 @@ import json
 
 #Password Generator Project
 
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v','w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '*']
 
@@ -46,14 +46,16 @@ def add_information():
     else:
         try:
             with open("password.json", "r") as file:
-            #reading the old data and then updating it with the new information
+            #reading-"r"(read) the old data and then updating it with the new information
                 data = json.load(file)
         except FileNotFoundError:
-            #if the json file does not exist then create a json file
+            #if the json file does not exist then create-"w"(write) a json file, the indent value is used to get the information to be arranged in a way that is eacy for us to read
             with open("password.json", "w") as file:
                 json.dump(new_data, file, indent=4)
         else:
-            #updating the
+            #updating the json file
+            #what happens here is that the new_data needs to be updated and then it has to be written to the file which is ehy after update, the json.dump() is used again to write the updated dictionary to the file
+            #observe that the writing part of the code is repetitive and so this code can be reduced by writing a method but for learning sake this is being done twice
             data.update(new_data)
 
             with open("password.json", "w") as file:
