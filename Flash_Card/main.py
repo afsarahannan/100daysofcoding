@@ -15,7 +15,7 @@ to_learn = {}
 try:
     data = pd.read_csv("data/to_learn.csv")
 except FileNotFoundError:
-    original_data = pd.read_csv("data/Chinese.csv")
+    original_data = pd.read_csv("data/HSK_1.csv")
     to_learn = original_data.to_dict(orient="records")
 else:
     to_learn = data.to_dict(orient="records")
@@ -28,7 +28,7 @@ def next_word():
     canvas.itemconfig(card_title, text='Chinese', fill="black")
     canvas.itemconfig(card_word, text=current_card['Chinese'], fill="black")
     canvas.itemconfig(card, image=card_front)
-    flip_timer = window.after(3000, func=flip_card)
+    flip_timer = window.after(5000, func=flip_card)
 
 def flip_card():
     canvas.itemconfig(card_title, text='Meaning', fill="white")
@@ -46,7 +46,6 @@ window.title("Flashcard")
 window.config(padx = 50, pady= 50, bg=BACKGROUND)
 
 flip_timer = window.after(3000, func = flip_card)
-
 
 canvas = Canvas(width=800, height=526) #this canvas has to be the same size as the image placed on top of it
 card_back = PhotoImage(file="images/card_back.png")
@@ -66,5 +65,5 @@ known_button = Button(image=check_image, command=is_known)
 known_button.grid(row=1, column=1)
 
 next_word()
-
+print(to_learn)
 window.mainloop()
