@@ -30,3 +30,7 @@ resources = {
     "coffee": 100,
 }
 
+print(MENU['espresso'])
+print(MENU['espresso']["ingredients"])
+print(MENU['espresso']["ingredients"]["water"])
+print(MENU['espresso']['cost'])
