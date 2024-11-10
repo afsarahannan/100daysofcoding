@@ -1,15 +1,14 @@
-from cgi import print_arguments
-
 import requests
 from datetime import datetime, timedelta
-
-from Quizzler.data import parameter
+from twilio.rest import Client
 
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
+TWILIO_SID = ""
+TWILIO_AUTH_TOKEN = ""
 
     ## STEP 1: Use https://www.alphavantage.co/documentation/#daily
 # When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -19,7 +18,7 @@ NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 parameters = {
     "function":"TIME_SERIES_DAILY",
     "symbol":STOCK_NAME,
-    "apikey":"WM654FE2B2LPBIQO"
+    "apikey":" "
 }
 response = requests.get(url=STOCK_ENDPOINT, params=parameters)
 response.raise_for_status()
@@ -29,14 +28,6 @@ yesterday = (datetime.now()-timedelta(1)).strftime("%Y-%m-%d")
 yesterday_closing = data[key][yesterday]['4. close']
 closing_dict = {date: details['4. close'] for date, details in data[key].items()}
 closing = [details['4. close'] for details in data[key].values()]
-
-# print(f"{closing},\n{closing_dict},\n{yesterday_closing}")
-
-# {'Meta Data': {'1. Information': 'Daily Prices (open, high, low, close) and Volumes', '2. Symbol': 'TSLA', '3. Last Refreshed': '2024-11-05', '4. Output Size': 'Compact', '5. Time Zone': 'US/Eastern'},
-#  'Time Series (Daily)':
-#      {'2024-11-05':{'1. open': '247.3400', '2. high': '255.2799', '3. low': '246.2101', '4. close': '251.4400', '5. volume': '65852493'},
-#      '2024-11-04': {'1. open': '244.5600', '2. high': '248.9000', '3. low': '238.8800', '4. close': '242.8400', '5. volume': '68802354'},
-#      '2024-11-01': {'1. open': '252.0430', '2. high': '254.0000', '3. low': '246.6300', '4. close': '248.9800', '5. volume': '57544757'}}
 
 #TODO 2. - Get the day before yesterday's closing stock price
 
@@ -49,11 +40,14 @@ print(day_before_yesterday_closing)
 # day_before_yesterday_closing = float(day_before_yesterday_closing)
 #
 diff = round(abs(yesterday_closing - day_before_yesterday_closing),2)
-print(diff)
+up_down = None
+if diff > 0:
+    up_down = "🔺"
+else:
+    up_down = "🔻"
 
 #TODO 4. - Work out the percentage difference in price between closing price yesterday and closing price the day before yesterday.
-# percentage_diff = round((diff/day_before_yesterday_closing)*100,2)
-#
+percentage_diff = round((diff/day_before_yesterday_closing)*100,2)
 sign = ''
 if yesterday_closing-day_before_yesterday_closing < 0:
     sign = '-'
@@ -63,12 +57,13 @@ else:
     print(f"The day before yesterday' closing price increased by {sign}{percentage_diff} moving from {day_before_yesterday_closing} to {yesterday_closing}")
 
 #TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
-# news_parameters = {
-#  "q":"Tesla",
-#  "from":"2024-11-05",
-#  "sortBy":"popularity",
-#  "apiKey":"ade32a0c7e7548ac8874c9936e51d5e3"
-# }
+
+news_parameters = {
+ "q":"Tesla",
+ "from":"2024-11-05",
+ "sortBy":"popularity",
+ "apiKey":" "
+}
 
 #TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
 
@@ -81,7 +76,8 @@ else:
 new_response = requests.get(url = "https://newsapi.org/v2/everything", params=news_parameters)
 new_response.raise_for_status()
 news = new_response.json()
-print(news)
+articles = new_response.json()["articles"]
+three_articles = articles[:3]
 
 top_news = []
 
@@ -96,16 +92,26 @@ print(datetime.today().strftime('%Y-%m-%d'))
 
 #TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
 
-message = []
-for headline, article in zip(headline, article):
-    message.append(f'Headline: {headline}. \nBrief:{article}')
+# formatted_message = []
+# for headline, article in zip(headline, article):
+#     formatted_message.append(f'Headline: {headline}. \nBrief:{article}')
 
 #TODO 9. - Send each article as a separate message via Twilio. 
 ## STEP 3: Use twilio.com/docs/sms/quickstart/python
 # to send a separate message with each article's title and description to your phone number.
+formatted_articles = [f"{STOCK_NAME}: {up_down}{percentage_diff}%\nHeadline: {article['title']}. \nBrief: {article['description']}" for article in three_articles]
+client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
+
+for article in formatted_articles:
+    message = client.message.create(
+        body=article,
+        from_=" ",
+        to=" "
+    )
+
+#Optional TODO: Format the message like this:
 
 
-#Optional TODO: Format the message like this: 
 """
 TSLA: 🔺2%
 Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
