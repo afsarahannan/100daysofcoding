@@ -1,19 +1,18 @@
 import requests
 
-parameters = {
-    "amount":10,
-    "type": "boolean",
+parameter = {
+    "amount" : 20,
+    "type" : "boolean",
+    "category": 9,
+    "difficulty":"easy"
 }
 
-response = requests.get("https://opentdb.com/api.php", params=parameters)
+response = requests.get("https://opentdb.com/api.php", params = parameter)
 response.raise_for_status()
 data = response.json()
-question_data = data["results"]
+question_data = data['results']
 
-
-# for _ in range(len(trivia_data)):
-#     trivia_data[_]["question"].strip('"')
-#     trivia_data[_]["correct_answer"].strip('"')
+print(parameter["amount"])
 
 #
 # question_data = [
